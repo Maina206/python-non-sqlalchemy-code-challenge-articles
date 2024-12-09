@@ -92,17 +92,22 @@ class Author:
         return f'<Author: name = {self.name}>'
 
 class Magazine:
+    all = []
     def __init__(self, name, category):
         self.name = name
         self.category = category
+        Magazine.all.append(self)
 
     @property
     def name(self):
+        # We return the magazine's name
         return self._name
 
     @name.setter
     def name(self, new_name):
+        # name must be a string
         if isinstance(new_name, str):
+            # ensure name is btwn 2 and 16 char
             if 2 <= len(new_name) <= 16:
                 self._name = new_name
             else: 
@@ -112,10 +117,12 @@ class Magazine:
         
     @property
     def category(self):
+        # we return the magazine category
         return self._category
 
     @category.setter
     def category(self, new_category):
+        # category must be a string and not empty - setter will allow us to change the magazine
         if isinstance(new_category, str):
             if len(new_category):
                 self._category = new_category
@@ -124,6 +131,7 @@ class Magazine:
         else:
             TypeError("Category must be a string")   
 
+    # Returning lists
     def articles(self):
         return [article for article in Article.all if self == article.magazine]
 
@@ -152,6 +160,21 @@ class Magazine:
             return list_of_authors
         else:
             return None
+        
+    @staticmethod
+    def top_publisher():
+        # pass
+        if not Magazine.all:
+            return None
+        # Determine magazine with the most articles
+        max_articles = 0
+        top_magazine = None
+        for magazine in Magazine.all:
+            num_articles = len(magazine.articles())
+            if num_articles > max_articles:
+                max_articles = num_articles
+                top_magazine = magazine
+        return top_magazine
 
     def __repr__(self):
         return f'<Magazine: name = {self.name}, category = {self.category}>'
