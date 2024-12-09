@@ -22,9 +22,9 @@ if __name__ == '__main__':
 
     article_1 = author_1.add_article(magazine_1, "How to wear a tutu with style")
     
-    # print(author_1.topic_areas())
-    # print(magazine_1.article_titles())
+    print(author_1.topic_areas())
+    print(magazine_1.article_titles())
     print(magazine_1.contributing_authors())
 
     # don't remove this line, it's for debugging!
-    # ipdb.set_trace()
+    ipdb.set_trace()
